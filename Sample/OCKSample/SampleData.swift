@@ -50,30 +50,30 @@ class SampleData: NSObject {
         An array of `OCKContact`s to display on the Connect view.
     */
     let contacts: [OCKContact] = [
-        OCKContact(contactType: .CareTeam,
+        OCKContact(contactType: .careTeam,
             name: "Dr. Maria Ruiz",
             relation: "Physician",
-            tintColor: Colors.Blue.color,
+            tintColor: Colors.blue.color,
             phoneNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             messageNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             emailAddress: "mruiz2@mac.com",
             monogram: "MR",
             image: nil),
         
-        OCKContact(contactType: .CareTeam,
+        OCKContact(contactType: .careTeam,
             name: "Bill James",
             relation: "Nurse",
-            tintColor: Colors.Green.color,
+            tintColor: Colors.green.color,
             phoneNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             messageNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             emailAddress: "billjames2@mac.com",
             monogram: "BJ",
             image: nil),
         
-        OCKContact(contactType: .Personal,
+        OCKContact(contactType: .personal,
             name: "Tom Clark",
             relation: "Father",
-            tintColor: Colors.Yellow.color,
+            tintColor: Colors.yellow.color,
             phoneNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             messageNumber: CNPhoneNumber(stringValue: "888-555-5512"),
             emailAddress: nil,
@@ -90,7 +90,7 @@ class SampleData: NSObject {
         for sampleActivity in activities {
             let carePlanActivity = sampleActivity.carePlanActivity()
             
-            carePlanStore.addActivity(carePlanActivity) { success, error in
+            carePlanStore.add(carePlanActivity) { success, error in
                 if !success {
                     print(error?.localizedDescription)
                 }
@@ -102,7 +102,7 @@ class SampleData: NSObject {
     // MARK: Convenience
     
     /// Returns the `Activity` that matches the supplied `ActivityType`.
-    func activityWithType(type: ActivityType) -> Activity? {
+    func activityWithType(_ type: ActivityType) -> Activity? {
         for activity in activities where activity.activityType == type {
             return activity
         }

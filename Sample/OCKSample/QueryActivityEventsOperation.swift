@@ -30,7 +30,7 @@
 
 import CareKit
 
-class QueryActivityEventsOperation: NSOperation {
+class QueryActivityEventsOperation: Operation {
     // MARK: Properties
     
     private let store: OCKCarePlanStore
@@ -56,7 +56,7 @@ class QueryActivityEventsOperation: NSOperation {
     
     override func main() {
         // Do nothing if the operation has been cancelled.
-        guard !cancelled else { return }
+        guard !isCancelled else { return }
         
         // Find the activity with the specified identifier in the store.
         guard let activity = findActivity() else { return }
@@ -65,24 +65,24 @@ class QueryActivityEventsOperation: NSOperation {
             Create a semaphore to wait for the asynchronous call to `enumerateEventsOfActivity`
             to complete.
         */
-        let semaphore = dispatch_semaphore_create(0)
+        let semaphore = DispatchSemaphore(value: 0)
 
         // Query for events for the activity between the requested dates.
         self.dailyEvents = DailyEvents()
         
-        dispatch_async(dispatch_get_main_queue()) { // <rdar://problem/25528295> [CK] OCKCarePlanStore query methods crash if not called on the main thread
-            self.store.enumerateEventsOfActivity(activity, startDate: self.startDate, endDate: self.endDate, handler: { event, _ in
+        DispatchQueue.main.async { // <rdar://problem/25528295> [CK] OCKCarePlanStore query methods crash if not called on the main thread
+            self.store.enumerateEvents(of: activity, startDate: self.startDate as DateComponents, endDate: self.endDate as DateComponents, handler: { event, _ in
                 if let event = event {
                     self.dailyEvents?[event.date].append(event)
                 }
             }, completion: { _, _ in
                 // Use the semaphore to signal that the query is complete.
-                dispatch_semaphore_signal(semaphore)
+                semaphore.signal()
             })
         }
         
         // Wait for the semaphore to be signalled.
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        semaphore.wait(timeout: DispatchTime.distantFuture)
     }
     
     // MARK: Convenience
@@ -92,24 +92,24 @@ class QueryActivityEventsOperation: NSOperation {
              Create a semaphore to wait for the asynchronous call to `activityForIdentifier`
              to complete.
          */
-        let semaphore = dispatch_semaphore_create(0)
+        let semaphore = DispatchSemaphore(value: 0)
         
         var activity: OCKCarePlanActivity?
         
-        dispatch_async(dispatch_get_main_queue()) { // <rdar://problem/25528295> [CK] OCKCarePlanStore query methods crash if not called on the main thread
-            self.store.activityForIdentifier(self.activityIdentifier) { success, foundActivity, error in
+        DispatchQueue.main.async { // <rdar://problem/25528295> [CK] OCKCarePlanStore query methods crash if not called on the main thread
+            self.store.activity(forIdentifier: self.activityIdentifier) { success, foundActivity, error in
                 activity = foundActivity
                 if !success {
                     print(error?.localizedDescription)
                 }
                 
                 // Use the semaphore to signal that the query is complete.
-                dispatch_semaphore_signal(semaphore)
+                semaphore.signal()
             }
         }
         
         // Wait for the semaphore to be signalled.
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
+        semaphore.wait(timeout: DispatchTime.distantFuture)
         
         return activity
     }

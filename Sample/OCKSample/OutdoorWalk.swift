@@ -37,12 +37,12 @@ import CareKit
 struct OutdoorWalk: Activity {
     // MARK: Activity
     
-    let activityType: ActivityType = .OutdoorWalk
+    let activityType: ActivityType = .outdoorWalk
     
     func carePlanActivity() -> OCKCarePlanActivity {
         // Create a weekly schedule.
         let startDate = NSDateComponents(year: 2016, month: 01, day: 01)
-        let schedule = OCKCareSchedule.weeklyScheduleWithStartDate(startDate, occurrencesOnEachDay: [2, 1, 1, 1, 1, 1, 2])
+        let schedule = OCKCareSchedule.weeklySchedule(withStartDate: startDate as DateComponents, occurrencesOnEachDay: [2, 1, 1, 1, 1, 1, 2])
         
         // Get the localized strings to use for the activity.
         let title = NSLocalizedString("Outdoor walk", comment: "")
@@ -50,12 +50,12 @@ struct OutdoorWalk: Activity {
         let instructions = NSLocalizedString("Take a leisurely walk.", comment: "")
         
         // Create the intervention activity.
-        let activity = OCKCarePlanActivity.interventionWithIdentifier(
-            activityType.rawValue,
+        let activity = OCKCarePlanActivity.intervention(
+            withIdentifier: activityType.rawValue,
             groupIdentifier: nil,
             title: title,
             text: summary,
-            tintColor: Colors.Purple.color,
+            tintColor: Colors.purple.color,
             instructions: instructions,
             imageURL: nil,
             schedule: schedule,

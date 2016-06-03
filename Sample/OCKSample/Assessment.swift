@@ -46,7 +46,7 @@ protocol Assessment: Activity {
  `OCKCarePlanEventResult` can then be written to a `OCKCarePlanStore`.
  */
 extension Assessment {
-    func buildResultForCarePlanEvent(event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
+    func buildResultForCarePlanEvent(_ event: OCKCarePlanEvent, taskResult: ORKTaskResult) -> OCKCarePlanEventResult {
         // Get the first result for the first step of the task result.
         guard let firstResult = taskResult.firstResult as? ORKStepResult, stepResult = firstResult.results?.first else { fatalError("Unexepected task results") }
         
