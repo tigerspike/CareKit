@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G1004" minimumToolsVersion="Xcode 7.0">
+    <entity name="CareCompleteHealthCondition" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="trackers" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CareCompleteTracker" inverseName="healthCondition" inverseEntity="CareCompleteTracker" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CareCompleteUser" inverseName="healthCondition" inverseEntity="CareCompleteUser" syncable="YES"/>
+    </entity>
+    <entity name="CareCompleteTracker" syncable="YES">
+        <attribute name="reason" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDCarePlanActivity" inverseName="tracker" inverseEntity="OCKCDCarePlanActivity" syncable="YES"/>
+        <relationship name="healthCondition" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CareCompleteHealthCondition" inverseName="trackers" inverseEntity="CareCompleteHealthCondition" syncable="YES"/>
+        <relationship name="type" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CareCompleteTrackerType" inverseName="tracker" inverseEntity="CareCompleteTrackerType" syncable="YES"/>
+    </entity>
+    <entity name="CareCompleteTrackerType" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tracker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CareCompleteTracker" inverseName="type" inverseEntity="CareCompleteTracker" syncable="YES"/>
+    </entity>
+    <entity name="CareCompleteUser" syncable="YES">
+        <attribute name="dateOfBirth" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="motivationalStatement" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profilePhoto" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="program" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="termsConditionAccepted" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="healthCondition" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CareCompleteHealthCondition" inverseName="user" inverseEntity="CareCompleteHealthCondition" syncable="YES"/>
+    </entity>
     <entity name="OCKCDCarePlanActivity" representedClassName="OCKCDCarePlanActivity" syncable="YES">
         <attribute name="color" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="groupIdentifier" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,6 +41,7 @@
         <attribute name="type" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="userInfo" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OCKCDCarePlanEvent" inverseName="activity" inverseEntity="OCKCDCarePlanEvent" syncable="YES"/>
+        <relationship name="tracker" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CareCompleteTracker" inverseName="activity" inverseEntity="CareCompleteTracker" syncable="YES"/>
     </entity>
     <entity name="OCKCDCarePlanEvent" representedClassName="OCKCDCarePlanEvent" syncable="YES">
         <attribute name="numberOfDaysSinceStart" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
@@ -35,8 +64,12 @@
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="OCKCDCarePlanEvent" inverseName="result" inverseEntity="OCKCDCarePlanEvent" syncable="YES"/>
     </entity>
     <elements>
-        <element name="OCKCDCarePlanActivity" positionX="-560" positionY="-114" width="200" height="225"/>
+        <element name="OCKCDCarePlanActivity" positionX="-560" positionY="-114" width="200" height="30"/>
         <element name="OCKCDCarePlanEvent" positionX="-288" positionY="-111" width="243" height="120"/>
         <element name="OCKCDCarePlanEventResult" positionX="-378" positionY="198" width="128" height="210"/>
+        <element name="CareCompleteUser" positionX="-369" positionY="36" width="128" height="30"/>
+        <element name="CareCompleteHealthCondition" positionX="-360" positionY="45" width="128" height="30"/>
+        <element name="CareCompleteTracker" positionX="-351" positionY="54" width="128" height="30"/>
+        <element name="CareCompleteTrackerType" positionX="-342" positionY="63" width="128" height="30"/>
     </elements>
 </model>

@@ -1,4 +1,4 @@
 [submodule "dependency"]
 	path = dependency
-	url = https://github.com/ResearchKit/ResearchKit.git
+url=https://github.com/tigerspike/ResearchKit.git
 	branch = stable
