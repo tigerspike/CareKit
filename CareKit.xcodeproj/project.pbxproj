@@ -638,15 +638,15 @@
 		8677EDF51C9775EB00588CD6 /* CarePlan */ = {
 			isa = PBXGroup;
 			children = (
-				8677EE021C9775EB00588CD6 /* OCKCarePlanStore.h */,
-				8677EE031C9775EB00588CD6 /* OCKCarePlanStore.m */,
-				8677EE041C9775EB00588CD6 /* OCKCarePlanStore.xcdatamodeld */,
-				8677EE061C9775EB00588CD6 /* OCKCarePlanStore_Internal.h */,
 				8677EDF61C9775EB00588CD6 /* NSDateComponents+CarePlan.h */,
-				8677EDF71C9775EB00588CD6 /* NSDateComponents+CarePlan.m */,
 				8677EDF81C9775EB00588CD6 /* NSDateComponents+CarePlanInternal.h */,
+				8677EE061C9775EB00588CD6 /* OCKCarePlanStore_Internal.h */,
+				8677EE021C9775EB00588CD6 /* OCKCarePlanStore.h */,
+				8677EDF71C9775EB00588CD6 /* NSDateComponents+CarePlan.m */,
+				8677EE031C9775EB00588CD6 /* OCKCarePlanStore.m */,
 				8677EE211C97762A00588CD6 /* Activities */,
 				8677EE221C97763E00588CD6 /* Events */,
+				8677EE041C9775EB00588CD6 /* OCKCarePlanStore.xcdatamodeld */,
 			);
 			path = CarePlan;
 			sourceTree = "<group>";
@@ -816,6 +816,7 @@
 				TargetAttributes = {
 					8605A5B91C4F04EC00DD65FF = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					8605A5C31C4F04EC00DD65FF = {
 						CreatedOnToolsVersion = 7.2;
@@ -1138,6 +1139,7 @@
 		8605A5CF1C4F04EC00DD65FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1150,12 +1152,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.carekit.CareKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		8605A5D01C4F04EC00DD65FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1168,6 +1173,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.carekit.CareKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
