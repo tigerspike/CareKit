@@ -94,6 +94,12 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithCarePlanStore:(OCKCarePlanStore *)store;
 
 /**
+ Returns TRUE if all events are completed
+ 
+*/
+- (BOOL)isAllEventsCompleted;
+
+/**
  The care plan store that provides the content for the symptom tracker.
  
  The symptom tracker displays activites and events that are of assessment type (see `OCKCarePlanActivityTypeAssessment`).
@@ -128,6 +134,7 @@ OCK_CLASS_AVAILABLE
  The default value is NO.
  */
 @property (nonatomic) BOOL showEdgeIndicators;
+
 
 @end
 

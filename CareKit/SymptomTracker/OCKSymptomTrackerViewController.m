@@ -258,13 +258,8 @@
                                                       dateStyle:NSDateFormatterLongStyle
                                                       timeStyle:NSDateFormatterNoStyle];
     
+    NSInteger completedEvents = [self totalCompletedEvents];
     NSInteger totalEvents = _events.count;
-    NSInteger completedEvents = 0;
-    for (OCKCarePlanEvent *event in _events) {
-        if (event.state == OCKCarePlanEventStateCompleted) {
-            completedEvents++;
-        }
-    }
     
     float progress = (totalEvents > 0) ? (float)completedEvents/totalEvents : 1;
     _headerView.value = progress;
@@ -272,13 +267,6 @@
     NSInteger selectedIndex = _weekViewController.symptomTrackerWeekView.selectedIndex;
     [_weekValues replaceObjectAtIndex:selectedIndex withObject:@(progress)];
     _weekViewController.symptomTrackerWeekView.values = _weekValues;
-    
-    if (_delegate &&
-        completedEvents == totalEvents &&
-        [_delegate respondsToSelector:@selector(symptomTrackerViewController:didCompleteAllEvent:)] &&
-        [self.selectedDate isEqualToDate:[self today]]) {
-        [_delegate symptomTrackerViewController:self didCompleteAllEvent:YES];
-    }
 }
 
 - (void)updateWeekView {
@@ -348,6 +336,7 @@
 #pragma mark - OCKCarePlanStoreDelegate
 
 - (void)carePlanStore:(OCKCarePlanStore *)store didReceiveUpdateOfEvent:(OCKCarePlanEvent *)event {
+    
     for (int i = 0; i < _events.count; i++) {
         OCKCarePlanEvent *eventInArray = _events[i];
         if ([eventInArray.activity isEqual:event.activity] &&
@@ -367,6 +356,15 @@
             
             break;
         }
+    }
+    
+    if ([self isAllEventsCompleted]) {
+        if (_delegate &&
+            [_delegate respondsToSelector:@selector(symptomTrackerViewController:didCompleteAllEvent:)] &&
+            [self.selectedDate isEqualToDate:[self today]]) {
+            [_delegate symptomTrackerViewController:self didCompleteAllEvent:YES];
+        }
+
     }
 }
 
@@ -446,5 +444,20 @@
     return cell;
 }
 
+#pragma mark - Events completed
+- (BOOL)isAllEventsCompleted {
+    
+    return ([self totalCompletedEvents] == _events.count);
+}
 
+- (NSInteger) totalCompletedEvents {
+    
+    NSInteger completedEvents = 0;
+    for (OCKCarePlanEvent *event in _events) {
+        if (event.state == OCKCarePlanEventStateCompleted) {
+            completedEvents++;
+        }
+    }
+    return completedEvents;
+}
 @end
