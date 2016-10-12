@@ -243,6 +243,9 @@
                           }
                       }
                       
+                      NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"state" ascending:YES];
+                      [_events sortUsingDescriptors:@[sortDescriptor]];
+                      
                       [self updateHeaderView];
                       [self updateWeekView];
                       [_tableView reloadData];
@@ -357,6 +360,11 @@
             OCKSymptomTrackerTableViewCell *cell = [_tableView cellForRowAtIndexPath:indexPath];
             cell.assessmentEvent = event;
             cell.showEdgeIndicator = cell.showEdgeIndicator;
+            
+            NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"state" ascending:YES];
+            [_events sortUsingDescriptors:@[sortDescriptor]];
+            [_tableView reloadData];
+            
             break;
         }
     }
