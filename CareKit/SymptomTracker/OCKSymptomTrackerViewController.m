@@ -269,6 +269,10 @@
     NSInteger selectedIndex = _weekViewController.symptomTrackerWeekView.selectedIndex;
     [_weekValues replaceObjectAtIndex:selectedIndex withObject:@(progress)];
     _weekViewController.symptomTrackerWeekView.values = _weekValues;
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(symptomTrackerViewController:didCompleteAllEvent:)]) {
+        [_delegate symptomTrackerViewController:self didCompleteAllEvent:YES];
+    }
 }
 
 - (void)updateWeekView {
