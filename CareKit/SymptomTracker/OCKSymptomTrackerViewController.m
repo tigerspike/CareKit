@@ -270,7 +270,10 @@
     [_weekValues replaceObjectAtIndex:selectedIndex withObject:@(progress)];
     _weekViewController.symptomTrackerWeekView.values = _weekValues;
     
-    if (_delegate && [_delegate respondsToSelector:@selector(symptomTrackerViewController:didCompleteAllEvent:)]) {
+    if (_delegate &&
+        completedEvents == totalEvents &&
+        [_delegate respondsToSelector:@selector(symptomTrackerViewController:didCompleteAllEvent:)] &&
+        [self.selectedDate isEqualToDate:[self today]]) {
         [_delegate symptomTrackerViewController:self didCompleteAllEvent:YES];
     }
 }
