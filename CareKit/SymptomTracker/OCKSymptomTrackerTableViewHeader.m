@@ -79,7 +79,8 @@ static const CGFloat RingViewSize = 110.0;
     
     if (!_titleLabel) {
         _titleLabel = [OCKLabel new];
-        _titleLabel.textStyle = UIFontTextStyleHeadline;
+        _titleLabel.textStyle = UIFontTextStyleBody;
+        _titleLabel.textColor = self.tintColor;
         _titleLabel.text = OCKLocalizedString(@"SYMPTOM_TRACKER_HEADER_TITLE", nil);
         _titleLabel.numberOfLines = 2;
         [self addSubview:_titleLabel];
@@ -88,7 +89,7 @@ static const CGFloat RingViewSize = 110.0;
     if (!_dateLabel) {
         _dateLabel = [OCKLabel new];
         _dateLabel.textStyle = UIFontTextStyleSubheadline;
-        _dateLabel.textColor = [UIColor darkGrayColor];
+        _dateLabel.textColor = [UIColor lightGrayColor];
         _dateLabel.numberOfLines = 2;
         [self addSubview:_dateLabel];
     }
@@ -113,6 +114,8 @@ static const CGFloat RingViewSize = 110.0;
     self.ringView.tintColor = self.tintColor;
     self.ringView.value = self.value;
     _dateLabel.text = self.date;
+    
+    _titleLabel.textColor = self.tintColor;
 }
 
 - (void)setUpConstraints {

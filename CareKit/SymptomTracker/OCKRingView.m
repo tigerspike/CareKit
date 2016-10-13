@@ -139,6 +139,7 @@ static const double VALUE_MAX = 1.0;
     label.numberOfLines = 1;
     
     label.font = [UIFont fontWithName:label.font.fontName size:radius/2.2];
+    label.textColor = self.tintColor;
     
     return label;
 }
@@ -149,6 +150,7 @@ static const double VALUE_MAX = 1.0;
     if (_circleLayer.fillColor != [UIColor clearColor].CGColor) {
         _circleLayer.fillColor = self.tintColor.CGColor;
     }
+    _label.textColor = self.tintColor;
 }
 
 - (void)setHideLabel:(BOOL)hideLabel {

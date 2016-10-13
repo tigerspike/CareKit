@@ -68,7 +68,8 @@ static const CGFloat HorizontalMargin = 10.0;
     
     if (!_titleLabel) {
         _titleLabel = [OCKLabel new];
-        _titleLabel.textStyle = UIFontTextStyleHeadline;
+        _titleLabel.textStyle = UIFontTextStyleBody;
+        _titleLabel.textColor = [UIColor colorWithRed:0x64 / 255.0 green:0x63 / 255.0 blue:0x63 / 255.0 alpha:1.0];
         [self addSubview:_titleLabel];
     }
     
@@ -81,7 +82,7 @@ static const CGFloat HorizontalMargin = 10.0;
     
     if (!_valueLabel) {
         _valueLabel = [OCKLabel new];
-        _valueLabel.textStyle = UIFontTextStyleTitle1;
+        _valueLabel.textStyle = UIFontTextStyleTitle3;
         _valueLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:_valueLabel];
     }
