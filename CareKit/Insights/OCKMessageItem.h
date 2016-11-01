@@ -46,7 +46,9 @@ typedef NS_ENUM(NSInteger, OCKMessageItemType) {
     /**
      An alert message type.
      */
-    OCKMessageItemTypeAlert
+    OCKMessageItemTypeAlert,
+    
+    OCKMessateItemTypeNone
 };
 
 

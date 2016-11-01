@@ -31,8 +31,18 @@
 
 #import <CareKit/CareKit.h>
 
-
 NS_ASSUME_NONNULL_BEGIN
+
+
+@protocol OCKInsightsViewControllerDelegate <NSObject>
+
+@optional
+
+- (void)didSelectSelectInsight;
+
+@end
+
+
 
 /**
  The `OCKInsightsViewController` class is a view controller that displays an array of `OCKInsightItem` objects.
@@ -51,7 +61,8 @@ OCK_CLASS_AVAILABLE
  */
 - (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items
                          headerTitle:(nullable NSString *)headerTitle
-                      headerSubtitle:(nullable NSString *)headerSubtitle;
+                      headerSubtitle:(nullable NSString *)headerSubtitle
+                            delegate:(id<OCKInsightsViewControllerDelegate>)aDelegate;
 
 /**
  Returns an initialzed insights view controller using the specified items.
@@ -60,7 +71,7 @@ OCK_CLASS_AVAILABLE
  
  @return An initialized insights view controller.
  */
-- (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items;
+- (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items delegate:(id<OCKInsightsViewControllerDelegate>)aDelegate;
 
 /**
  An array of insight items.
@@ -88,6 +99,8 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic) BOOL showEdgeIndicators;
 
+
+@property (nonatomic, weak, nullable) id<OCKInsightsViewControllerDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

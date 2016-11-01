@@ -58,7 +58,8 @@ static const CGFloat HeaderViewHeight = 60.0;
 
 - (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items
                          headerTitle:(NSString *)headerTitle
-                      headerSubtitle:(NSString *)headerSubtitle {
+                      headerSubtitle:(NSString *)headerSubtitle
+                            delegate:(id<OCKInsightsViewControllerDelegate>)aDelegate{
     self = [super init];
     if (self) {
         _items = OCKArrayCopyObjects(items);
@@ -66,14 +67,17 @@ static const CGFloat HeaderViewHeight = 60.0;
         _headerSubtitle = [headerSubtitle copy];
         _hasAnimated = NO;
         _showEdgeIndicators = NO;
+        _delegate = aDelegate;
     }
     return self;
 }
 
-- (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items {
+- (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items delegate:(id<OCKInsightsViewControllerDelegate>)aDelegate {
+    
     return [[OCKInsightsViewController alloc] initWithInsightItems:items
                                                        headerTitle:nil
-                                                    headerSubtitle:nil];
+                                                    headerSubtitle:nil
+                                                          delegate:aDelegate];
 }
 
 - (void)viewDidLoad {
@@ -203,9 +207,20 @@ static const CGFloat HeaderViewHeight = 60.0;
 #pragma mark - UITableViewDelegate
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
+    return (indexPath.section == 0);
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        
+        if (_delegate && [_delegate respondsToSelector:@selector(didSelectSelectInsight)]) {
+            [_delegate didSelectSelectInsight];
+        }
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -237,6 +252,11 @@ static const CGFloat HeaderViewHeight = 60.0;
         if (!cell) {
             cell = [[OCKInsightsMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                           reuseIdentifier:MessageCellIdentifier];
+        }
+        
+        if (indexPath.section == 0) {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
         }
         cell.messageItem = (OCKMessageItem *)item;
         cell.showEdgeIndicator = self.showEdgeIndicators;
