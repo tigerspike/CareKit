@@ -80,11 +80,11 @@
     
     _store.symptomTrackerUIDelegate = self;
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"TODAY_BUTTON_TITLE", nil)
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"TODAY_BUTTON_TITLE", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(showToday:)];
-    self.navigationItem.rightBarButtonItem.tintColor = self.progressRingTintColor;
+    self.navigationItem.leftBarButtonItem.tintColor = self.progressRingTintColor;
     
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.dataSource = self;
