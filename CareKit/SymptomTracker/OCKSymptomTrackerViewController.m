@@ -86,6 +86,12 @@
                                                                              action:@selector(showToday:)];
     self.navigationItem.leftBarButtonItem.tintColor = self.progressRingTintColor;
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"MANAGE_BUTTON_TITLE", nil)
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(showManage:)];
+    self.navigationItem.rightBarButtonItem.tintColor = self.progressRingTintColor;
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -111,6 +117,10 @@
 - (void)showToday:(id)sender {
     self.selectedDate = [NSDateComponents ock_componentsWithDate:[NSDate date] calendar:_calendar];
     [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:NSNotFound inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
+
+- (void)showManage:(id)sender {
+
 }
 
 - (void)prepareView {

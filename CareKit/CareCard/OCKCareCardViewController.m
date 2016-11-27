@@ -93,6 +93,12 @@
                                                                              action:@selector(showToday:)];
     self.navigationItem.leftBarButtonItem.tintColor = self.maskImageTintColor;
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"MANAGE_BUTTON_TITLE", nil)
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(showManage:)];
+    self.navigationItem.rightBarButtonItem.tintColor = self.maskImageTintColor;
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
