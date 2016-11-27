@@ -180,6 +180,9 @@ OCK_CLASS_AVAILABLE
  */
 @property (nonatomic) BOOL showEdgeIndicators;
 
+///Exposed for overriding purposes
+- (void)showManage:(nonnull id)sender;
+
 @end
 
 NS_ASSUME_NONNULL_END

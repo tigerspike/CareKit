@@ -131,6 +131,10 @@
     [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:NSNotFound inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
+- (void)showManage:(nonnull id)sender {
+    
+}
+
 - (void)prepareView {
     if (!_headerView) {
         _headerView = [[OCKCareCardTableViewHeader alloc] initWithFrame:CGRectZero];
