@@ -40,6 +40,8 @@
 
 /* Symptom Tracker */
 "SYMPTOM_TRACKER_HEADER_TITLE" = "Activity Completion";
+"SYMPTOM_TRACKER_TODO" = "To track";
+"SYMPTOM_TRACKER_DONE" = "Tracked";
 
 /* Connect Master View */
 "CARE_TEAM_SECTION_TITLE" = "Care Team";

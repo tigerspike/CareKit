@@ -137,6 +137,9 @@ OCK_CLASS_AVAILABLE
 
 ///Exposed for overriding purposes
 - (void)showManage:(nonnull id)sender;
+- (void)filterChanged:(UISegmentedControl *)sender;
+
+@property (nonatomic, nullable, copy) BOOL (^eventFilter)(OCKCarePlanEvent * _Nonnull);
 
 @end
 

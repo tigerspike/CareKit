@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *date;
 
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
+
 @end
 
 NS_ASSUME_NONNULL_END

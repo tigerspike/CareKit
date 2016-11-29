@@ -52,6 +52,7 @@
 @implementation OCKSymptomTrackerViewController {
     UITableView *_tableView;
     NSMutableArray<OCKCarePlanEvent *> *_events;
+    NSMutableArray<OCKCarePlanEvent *> *_allEvents;
     NSMutableArray *_weekValues;
     OCKSymptomTrackerTableViewHeader *_headerView;
     UIPageViewController *_pageViewController;
@@ -128,6 +129,7 @@
         _headerView = [[OCKSymptomTrackerTableViewHeader alloc] initWithFrame:CGRectZero];
     }
     _headerView.tintColor = self.progressRingTintColor;
+    [_headerView.segmentedControl addTarget:self action:@selector(filterChanged:) forControlEvents:UIControlEventValueChanged];
     
     if (!_pageViewController) {
         _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
@@ -234,6 +236,15 @@
 
 #pragma mark - Helpers
 
+- (void)filterChanged:(UISegmentedControl *)sender {
+    
+}
+
+- (void)setEventFilter:(BOOL (^)(OCKCarePlanEvent * _Nonnull))eventFilter {
+    _eventFilter = eventFilter;
+    [self fetchEvents];
+}
+
 - (void)fetchEvents {
     [_store eventsOnDate:_selectedDate
                     type:OCKCarePlanActivityTypeAssessment
@@ -246,10 +257,22 @@
                       }
                       
                       _events = [NSMutableArray new];
+                      _allEvents = [NSMutableArray new];
                       
                       for (NSArray<OCKCarePlanEvent *> *events in eventsGroupedByActivity) {
                           for (OCKCarePlanEvent *event in events) {
-                              [_events addObject:event];
+                              
+                              if (self.eventFilter) {
+                                  
+                                  if (self.eventFilter(event)) {
+                                      [_events addObject:event];
+                                  }
+                                  
+                              } else {
+                                  [_events addObject:event];
+                              }
+                            
+                              [_allEvents addObject:event];
                           }
                       }
                       
@@ -269,7 +292,7 @@
                                                       timeStyle:NSDateFormatterNoStyle];
     
     NSInteger completedEvents = [self totalCompletedEvents];
-    NSInteger totalEvents = _events.count;
+    NSInteger totalEvents = _allEvents.count;
     
     float progress = (totalEvents > 0) ? (float)completedEvents/totalEvents : 1;
     _headerView.value = progress;
@@ -463,7 +486,7 @@
 - (NSInteger) totalCompletedEvents {
     
     NSInteger completedEvents = 0;
-    for (OCKCarePlanEvent *event in _events) {
+    for (OCKCarePlanEvent *event in _allEvents) {
         if (event.state == OCKCarePlanEventStateCompleted) {
             completedEvents++;
         }
