@@ -74,6 +74,15 @@ OCK_CLASS_AVAILABLE
 - (instancetype)initWithInsightItems:(NSArray<OCKInsightItem *> *)items delegate:(id<OCKInsightsViewControllerDelegate>)aDelegate;
 
 /**
+ Returns an initialzed insights view controller using the specified items.
+ 
+ @param items           An array of `OCKInsightItem` objects.
+ 
+ @return An initialized insights view controller.
+ */
++ (instancetype)createWithInsightItems:(NSArray<OCKInsightItem *> *)items delegate:(id<OCKInsightsViewControllerDelegate>)aDelegate;
+
+/**
  An array of insight items.
 */
 @property (nonatomic, copy) NSArray<OCKInsightItem*> *items;

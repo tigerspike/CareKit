@@ -80,6 +80,14 @@ static const CGFloat HeaderViewHeight = 60.0;
                                                           delegate:aDelegate];
 }
 
++ (instancetype)createWithInsightItems:(NSArray<OCKInsightItem *> *)items delegate:(id<OCKInsightsViewControllerDelegate>)aDelegate {
+    
+    return [[self.class alloc] initWithInsightItems:items
+                                        headerTitle:nil
+                                     headerSubtitle:nil
+                                           delegate:aDelegate];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
