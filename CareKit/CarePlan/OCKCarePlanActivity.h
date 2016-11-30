@@ -61,8 +61,6 @@ typedef NS_ENUM(NSInteger, OCKCarePlanActivityType) {
 OCK_CLASS_AVAILABLE
 @interface OCKCarePlanActivity : NSObject <NSSecureCoding, NSCopying>
 
-extern NSString *const kCarePlanActivityUserInfoImageName;
-
 - (instancetype)init NS_UNAVAILABLE;
 
 /**

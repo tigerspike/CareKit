@@ -40,7 +40,6 @@ static const CGFloat BottomMargin = 30.0;
 static const CGFloat HorizontalMargin = 10.0;
 
 @implementation OCKSymptomTrackerTableViewCell {
-    UIImageView *_iconView;
     OCKLabel *_titleLabel;
     OCKLabel *_textLabel;
     OCKLabel *_valueLabel;
@@ -66,11 +65,6 @@ static const CGFloat HorizontalMargin = 10.0;
     [super prepareView];
     
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    if (!_iconView) {
-        _iconView = [[UIImageView alloc] init];
-        [self addSubview:_iconView];
-    }
     
     if (!_titleLabel) {
         _titleLabel = [OCKLabel new];
@@ -104,15 +98,6 @@ static const CGFloat HorizontalMargin = 10.0;
     _valueLabel.text = (self.assessmentEvent.result.valueString.length > 0) ? self.assessmentEvent.result.valueString : @"";
     _valueLabel.textColor = self.tintColor;
     
-    _iconView.image = nil;
-    NSDictionary *activityUserInfo = self.assessmentEvent.activity.userInfo;
-    if (activityUserInfo != nil) {
-        OCKCarePlanActivityUserInfo *info = [activityUserInfo objectForKey:kCarePlanActivityUserInfoImageName];
-        if (info != nil) {
-            _iconView.image = [UIImage imageNamed:info.imageName];
-        }
-    }
-    
     if (self.assessmentEvent.result.unitString.length > 0) {
         if (!_unitLabel) {
             _unitLabel = [OCKLabel new];
@@ -133,7 +118,6 @@ static const CGFloat HorizontalMargin = 10.0;
     
     _constraints = [NSMutableArray new];
     
-    _iconView.translatesAutoresizingMaskIntoConstraints = NO;
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _valueLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -180,25 +164,11 @@ static const CGFloat HorizontalMargin = 10.0;
     }
     
     [_constraints addObjectsFromArray:@[
-                                        [NSLayoutConstraint constraintWithItem:_iconView
-                                                                     attribute:NSLayoutAttributeCenterY
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self
-                                                                     attribute:NSLayoutAttributeCenterY
-                                                                    multiplier:1.0
-                                                                      constant:0],
-                                        [NSLayoutConstraint constraintWithItem:_iconView
-                                                                     attribute:NSLayoutAttributeLeading
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self
-                                                                     attribute:NSLayoutAttributeLeading
-                                                                    multiplier:1.0
-                                                                      constant:LeadingMargin],
                                         [NSLayoutConstraint constraintWithItem:_titleLabel
                                                                      attribute:NSLayoutAttributeLeading
                                                                      relatedBy:NSLayoutRelationEqual
-                                                                        toItem:_iconView
-                                                                     attribute:NSLayoutAttributeTrailing
+                                                                        toItem:self
+                                                                     attribute:NSLayoutAttributeLeading
                                                                     multiplier:1.0
                                                                       constant:LeadingMargin],
                                         [NSLayoutConstraint constraintWithItem:_titleLabel
