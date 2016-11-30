@@ -36,6 +36,8 @@
 
 @implementation OCKCarePlanActivity
 
+NSString *const kCarePlanActivityUserInfoImageName = @"ImageName";
+
 - (instancetype)init {
     OCKThrowMethodUnavailableException();
     return nil;

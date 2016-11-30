@@ -39,6 +39,7 @@
 #import <CareKit/OCKCarePlanEvent.h>
 #import <CareKit/OCKCarePlanEventResult.h>
 #import <CareKit/OCKCarePlanStore.h>
+#import <CareKit/OCKCarePlanActivityUserInfo.h>
 
 // Care Card
 #import <CareKit/OCKCareCardViewController.h>
