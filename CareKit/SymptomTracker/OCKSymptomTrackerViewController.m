@@ -59,6 +59,7 @@
     OCKWeekViewController *_weekViewController;
     NSCalendar *_calendar;
     NSMutableArray *_constraints;
+    UIBarButtonItem *_todayButton;
 }
 
 - (instancetype)init {
@@ -81,11 +82,11 @@
     
     _store.symptomTrackerUIDelegate = self;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"TODAY_BUTTON_TITLE", nil)
+    _todayButton = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"TODAY_BUTTON_TITLE", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(showToday:)];
-    self.navigationItem.leftBarButtonItem.tintColor = self.progressRingTintColor;
+    _todayButton.tintColor = self.progressRingTintColor;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"MANAGE_BUTTON_TITLE", nil)
                                                                              style:UIBarButtonItemStylePlain
@@ -214,6 +215,8 @@
     
     _weekViewController.symptomTrackerWeekView.selectedIndex = self.selectedDate.weekday - 1;
     
+    [self.navigationItem setLeftBarButtonItem:[today isEqualToDate:selectedDate] == TRUE ? nil : _todayButton animated:TRUE];
+
     [self fetchEvents];
 }
 

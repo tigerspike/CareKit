@@ -62,6 +62,7 @@
     OCKWeekViewController *_weekViewController;
     NSCalendar *_calendar;
     NSMutableArray *_constraints;
+    UIBarButtonItem *_todayButton;
 }
 
 - (instancetype)init {
@@ -87,11 +88,11 @@
     
     self.store.careCardUIDelegate = self;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"TODAY_BUTTON_TITLE", nil)
+    _todayButton = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"TODAY_BUTTON_TITLE", nil)
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(showToday:)];
-    self.navigationItem.leftBarButtonItem.tintColor = self.maskImageTintColor;
+    _todayButton.tintColor = self.maskImageTintColor;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:OCKLocalizedString(@"MANAGE_BUTTON_TITLE", nil)
                                                                               style:UIBarButtonItemStylePlain
@@ -225,6 +226,8 @@
     _selectedDate = [selectedDate isLaterThan:today] ? today : selectedDate;
     
     _weekViewController.careCardWeekView.selectedIndex = self.selectedDate.weekday - 1;
+    
+    [self.navigationItem setLeftBarButtonItem:[today isEqualToDate:selectedDate] == TRUE ? nil : _todayButton animated:TRUE];
     
     [self fetchEvents];
 }
