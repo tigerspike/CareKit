@@ -302,7 +302,7 @@
         }
     }
     
-    float value = (totalEvents > 0) ? (float)completedEvents/totalEvents : 1;
+    float value = (totalEvents > 0) ? (float)completedEvents/totalEvents : 0;
     _headerView.value = value;
     
     NSInteger selectedIndex = _weekViewController.careCardWeekView.selectedIndex;
@@ -329,7 +329,7 @@
                                           if ([date isLaterThan:[self today]]) {
                                               [values addObject:@(0)];
                                           } else if (totalEvents == 0) {
-                                              [values addObject:@(1)];
+                                              [values addObject:@(0)];
                                           } else {
                                               [values addObject:@((float)completedEvents/totalEvents)];
                                           }
