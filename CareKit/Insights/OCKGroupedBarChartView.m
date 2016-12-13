@@ -740,6 +740,7 @@ static const CGFloat MarginBetweenBarAndLabel = 6.0;
     _legendsView.backgroundColor = [[UIColor cyanColor] colorWithAlphaComponent:0.2];
 #endif
     _shouldInvalidateLegendViewIntrinsicContentSize = YES;
+    _legendsView.hidden = YES;
     [self addSubview:_legendsView];
 
     [_constraints addObject:[NSLayoutConstraint constraintWithItem:_legendsView
