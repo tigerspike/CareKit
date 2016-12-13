@@ -53,30 +53,30 @@ static NSString *htmlStringFromString (NSString *string) {
 }
 
 - (NSString *)HTMLContent {
-    NSString *html = @"<!doctype html>\n";
+    NSString *html = @"<!doctype html>";
     
-    NSString *css = @"body {\n"
-    "font-family: -apple-system, Helvetica, Arial;\n"
-    "}\n";
+    NSString *css = @"body {"
+    "font-family: -apple-system, Helvetica, Arial;"
+    "}";
     if (css.length > 0) {
-        css = [NSString stringWithFormat:@"<style>\n"
-               "%@\n"
-               "</style>\n", css];
+        css = [NSString stringWithFormat:@"<style>"
+               "%@"
+               "</style>", css];
     }
     
     
-    html = [html stringByAppendingFormat:@"<html>\n"
-            "<head>\n"
-            "<title>%@</title>\n"
-            "<meta charset=\"utf-8\">\n"
+    html = [html stringByAppendingFormat:@"<html>"
+            "<head>"
+            "<title>%@</title>"
+            "<meta charset=\"utf-8\">"
             "%@"
-            "</head>\n"
-            "<body>\n", _title.length > 0 ? _title : @"html", css]; // To pass w3c html validation
+            "</head>"
+            "<body>", _title.length > 0 ? _title : @"html", css]; // To pass w3c html validation
     
     if (_title) {
-        html = [html stringByAppendingString:[NSString stringWithFormat:@"<h2>%@</h2><div style='clear:both; width:100%%;"
-                                              "background-color:#000000; height:1px; margin-top:-17px; margin-bottom:10px;'"
-                                              "></div>\n", _title]];
+        html = [html stringByAppendingString:[NSString stringWithFormat:@"<h2>%@</h2><div style=\"clear:both; width:100%%;"
+                                              "background-color:#000000; height:1px; margin-top:-17px; margin-bottom:10px;\""
+                                              "></div>", _title]];
     }
     
     for (id<OCKDocumentElement> element in _elements) {
