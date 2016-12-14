@@ -84,7 +84,7 @@ static NSString *htmlStringFromString (NSString *string) {
         html = [html stringByAppendingString:@"\n"];
     }
     
-    html = [html stringByAppendingString:@"</body>\n</html>\n"];
+    html = [html stringByAppendingString:@"</body></html>"];
     html = htmlStringFromString(html);
     return html;
 }
@@ -207,10 +207,10 @@ static NSString *imageTagFromView (UIView *view) {
             // This triggers autolayout.
             UITableViewCell *cell = [[UITableViewCell alloc] init];
             [cell.contentView addSubview:view];
-            cell.frame = CGRectMake(0, 0, 480, 320);
+            cell.frame = CGRectMake(0, 0, 480, 480);
         }
         
-        view.frame = CGRectMake(0, 0, 480, 320);
+        view.frame = CGRectMake(0, 0, 480, 480);
         view.backgroundColor = [UIColor whiteColor];
         
         html = [html stringByAppendingString:imageTagFromView(view)];
