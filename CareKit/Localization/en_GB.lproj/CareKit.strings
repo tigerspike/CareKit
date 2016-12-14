@@ -30,7 +30,7 @@
 
 
 /* Care Card */
-"CARE_CARD_HEADER_TITLE" = "Care Completion";
+"CARE_CARD_HEADER_TITLE" = "To-do List Completion";
 "TODAY_BUTTON_TITLE" = "Today";
 
 /* Care Card Detail View */
