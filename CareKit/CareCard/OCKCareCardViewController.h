@@ -93,6 +93,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)careCardViewController:(OCKCareCardViewController *)viewController willDisplayEvents:(NSArray<NSArray<OCKCarePlanEvent*>*>*)events dateComponents:(NSDateComponents *)dateComponents;
 
+/**
+ Tells the delegate when the completion status changes
+ 
+ @param status          The completions status of the CareCard
+ */
+- (void)careCardCompletionStatus:(float)status;
+
 @end
 
 

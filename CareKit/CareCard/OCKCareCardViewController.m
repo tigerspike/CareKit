@@ -294,6 +294,16 @@
     _headerView.date = [NSDateFormatter localizedStringFromDate:[_calendar dateFromComponents:self.selectedDate]
                                                       dateStyle:NSDateFormatterLongStyle
                                                       timeStyle:NSDateFormatterNoStyle];
+    
+    float value = [self progressValue];
+    _headerView.value = value;
+    
+    NSInteger selectedIndex = _weekViewController.careCardWeekView.selectedIndex;
+    [_weekValues replaceObjectAtIndex:selectedIndex withObject:@(value)];
+    _weekViewController.careCardWeekView.values = _weekValues;
+}
+
+- (float)progressValue {
     NSInteger totalEvents = 0;
     NSInteger completedEvents = 0;
     for (NSArray<OCKCarePlanEvent* > *events in _events) {
@@ -305,12 +315,7 @@
         }
     }
     
-    float value = (totalEvents > 0) ? (float)completedEvents/totalEvents : 0;
-    _headerView.value = value;
-    
-    NSInteger selectedIndex = _weekViewController.careCardWeekView.selectedIndex;
-    [_weekValues replaceObjectAtIndex:selectedIndex withObject:@(value)];
-    _weekViewController.careCardWeekView.values = _weekValues;
+    return (totalEvents > 0) ? (float)completedEvents/totalEvents : 0;
 }
 
 - (void)updateWeekView {
@@ -443,6 +448,7 @@
             break;
         }
     }
+    [_delegate careCardCompletionStatus:[self progressValue]];
 }
 
 - (void)carePlanStoreActivityListDidChange:(OCKCarePlanStore *)store {
